@@ -25,7 +25,7 @@
     </head>
     <body>
         <h1>Hello World!</h1>
-        <a href="tutorInsert.jsp">Insert Tutor</a><br><br>
+        <a href="addTutor.jsp">Insert Tutor</a><br><br>
         <a href="tutorDelete.jsp">Delete Tutor</a><br><br>
         <a href="tutorUpdate.jsp">Update Tutor</a><br><br>
         <form action="TutorServlet" method=""post>
