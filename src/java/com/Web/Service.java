@@ -91,7 +91,7 @@ public class Service
     public static Tutor selectTutor(String username,String password)throws SQLException,ClassNotFoundException
     {
         Tutor tutor = new Tutor();
-        
+       
         Connection con = Connect.getCon();
         PreparedStatement ps = con.prepareStatement("select * from tutorlogin where username = ? and password = ?");
         
@@ -122,9 +122,10 @@ public class Service
         
         Connection con = Connect.getCon();
         PreparedStatement ps = con.prepareStatement("delete from tutorlogin where username=?");
-        PreparedStatement ps1 = con.prepareStatement("drop table ?");
-        ps1.setString(1,username);
-        ps1.executeUpdate();
+        String user = username.toLowerCase();
+        String query = "drop table "+user;
+        Statement ps1 = con.createStatement();
+        ps1.executeUpdate(query);
         ps.setString(1,username);
         
         int row = ps.executeUpdate();

@@ -24,7 +24,7 @@ public class LoginServlet extends HttpServlet
     public void service(HttpServletRequest req,HttpServletResponse res)throws ServletException,IOException
     {
         
-        PrintWriter out = res.getWriter();
+       PrintWriter out = res.getWriter();
         LocalTime currenttime = LocalTime.now();
         HttpSession session = req.getSession();
          
@@ -46,7 +46,7 @@ public class LoginServlet extends HttpServlet
             {
                 Tutor tutor = Service.selectTutor(username,password);
                 LocalTime before = LocalTime.of(tutor.getAfterhour(),tutor.getAfterminute());
-                LocalTime after = LocalTime.of(21,0);
+                LocalTime after = LocalTime.of(23,0);
                 LocalDate todaydate = LocalDate.now();
                 session.setAttribute("waittime",before);
                 
@@ -57,10 +57,12 @@ public class LoginServlet extends HttpServlet
                     session.setAttribute("beforehour",tutor.getBeforehour());
                     session.setAttribute("beforeminute",tutor.getBeforeminute());
                     session.setAttribute("afterhour",tutor.getAfterhour());
+                    session.setAttribute("afterminute",tutor.getAfterminute());
                     session.setAttribute("username",tutor.getUsername());
-                    
                     int diffhour = tutor.getAfterhour() - tutor.getBeforehour();
-                    int diffminute = tutor.getAfterminute()- tutor.getBeforeminute();
+                    int diffminute = tutor.getAfterminute() - tutor.getBeforeminute();
+                    
+                     
                     session.setAttribute("diffhour",diffhour);
                     session.setAttribute("diffminute",diffminute);
                     session.setMaxInactiveInterval(15);

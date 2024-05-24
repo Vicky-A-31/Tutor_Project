@@ -107,6 +107,19 @@ public class TutorServlet extends HttpServlet
                 rd.forward(req,res);
             }
         } 
+        else if(action.equals("Change"))
+        {
+            try 
+            {
+                change(req,res);
+            }
+            catch(Exception e)
+            {
+                RequestDispatcher rd = req.getRequestDispatcher("error.jsp");
+                req.setAttribute("exception",e);
+                rd.forward(req,res);
+            }
+        } 
     }
     
     
@@ -126,11 +139,16 @@ public class TutorServlet extends HttpServlet
         Tutor tutor = new Tutor(username,password,profilename,beforehour,beforeminute,afterhour,afterminute);
         if(Service.insertTutor(tutor))
         {
-            out.println("Inserted Successfully");
+            out.println("<html><body>"
+                    + "<script>alert('Tutor Insertion Successfully');"
+                    + "window.location = '/WebApplication/addTutor.jsp';</script>"
+                    + "</body></html>");
         }
         else
         {
-            out.println("Insert Is Fail");
+            out.println("<html><body>"
+                    + "<script>alert('Tutor Insertion Failed');</script>"
+                    + "</body></html>");
         }
     }
     
@@ -145,11 +163,15 @@ public class TutorServlet extends HttpServlet
 
         if(Service.deleteTutor(tutor.getUsername()))
         {
-            out.println("Successfully Deleted");
+            out.println("<html><body>"
+                    + "<script>alert('Tutor Deleted Successfully');</script>"
+                    + "</body></html>");
         }
         else
         {
-            out.print("Deleted Failed");
+           out.println("<html><body>"
+                    + "<script>alert('Tutor Deletion Fail');</script>"
+                    + "</body></html>");
         }
         
     }
@@ -172,11 +194,15 @@ public class TutorServlet extends HttpServlet
         Tutor tutor = new Tutor(username,password,profilename,beforehour,beforeminute,afterhour,afterminute);
         if(Service.updateTutor(tutor))
         {
-            out.println("Updated Successfully");
+            out.println("<html><body>"
+                    + "<script>alert('Tutor Information Updated Successfully');</script>"
+                    + "</body></html>");
         }
         else
         {
-            out.println("Update Is Fail");
+            out.println("<html><body>"
+                    + "<script>alert('Updation Fail');</script>"
+                    + "</body></html>");
         }
     }
     
@@ -188,14 +214,21 @@ public class TutorServlet extends HttpServlet
         
         ArrayList<Tutor> tutorArray = Service.selectAllTutor();
         Tutor tutor = new Tutor();
-        out.println("<html><body>");
-        out.println("<form action=\"TutorServlet\" method=\"post\">"+
-"            <input type=\"text\" name=\"username\" placeholder=\"username\"><br><br>\n" +
-"            <input type=\"submit\" value=\"View Description\" name=\"action\">\n" +
+        out.println("<!DOCTYPE html>");
+        out.println("<html><head>\n" +
+"    <meta charset=\"UTF-8\">\n" +
+"    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n" +
+"    <title>&#128214; Tutor List - Max Home Tuition &#128214;</title><link rel=\"stylesheet\" href=\"showTable.css\"><body>");
+        out.println("<form action=\"TutorServlet\" method=\"post\">"
+                + "<div class='inputs'>"+
+"            <input type=\"text\" name=\"username\" placeholder=\"username\"></div><br><br>\n" +
+"            <div class='inputs'><input type=\"submit\" value=\"View Description\" name=\"action\"></div>\n" +
 "        </form>");
-        out.println("<br><hr><br>");
-        out.println("<h1>Tutor List</h1>");
-        out.println("<table border='1'><tr><th>Username</th>");
+        out.println("<br><hr>");
+        out.println("<h2>Tutor List</h2>");
+        out.println("<button type=\"button\" onclick=\"window.print()\">Print</button>\n" +
+"    <div class=\"table-responsive\">");
+        out.println("<table><tr><th>Username</th>");
         out.println("<th>Password</th>");
         out.println("<th>Profile Name</th>");
         out.println("<th>Before Hour</th>");
@@ -214,7 +247,8 @@ public class TutorServlet extends HttpServlet
             out.println("<td>"+t.getAfterminute()+"</td>");
             out.println("</tr>");
         }
-        out.println("</table>");
+        out.println("</table></div>");
+        out.println("<br><br><p>Signature : </p>");
         out.println("</body></html>");
     }
     
@@ -242,38 +276,37 @@ public class TutorServlet extends HttpServlet
             }
         }
         String user = s.toString();
-        int dhour = outtimehour - intimehour;
-        int dminute = outtimeminute - intimeminute;
-        
-        /* int originalhour = 0,originalminute = 0;
-        
-        int a = Integer.parseInt((String) session.getAttribute("diffhour"));
-        int b = Integer.parseInt((String) session.getAttribute("diffminute"));
-        if(a < dhour || b < dminute)
+        int dhour,dminute;
+        if((outtimeminute+60) - intimeminute >= 60)
         {
-            originalhour = a;
-            originalminute = b;
+             dhour = outtimehour - intimehour;
+             dminute = outtimeminute - intimeminute;
         }
         else
         {
-            originalhour = dhour;
-            originalminute = dminute;
-        }*/
+            dhour = outtimehour-intimehour-1;
+            dminute = (outtimeminute+60) - intimeminute; 
+        }
+       
         Description des = new Description(todaydate.toString(),description,intimehour,intimeminute,outtimehour,
                outtimeminute,dhour,dminute);
         Connection con = Connect.getCon();
         Statement sm = con.createStatement();
-        String query = "insert into "+user.toLowerCase()+" values("+des.getTodaydate()+","+des.getDescription()+","
+        String query = "insert into "+user.toLowerCase()+" values('"+des.getTodaydate()+"','"+des.getDescription()+"',"
                 +des.getIntimehour()+","+des.getIntimeminute()+","+des.getOuttimehour()+","+des.getOuttimeminute()+","
                 +des.getDurationhour()+","+des.getDurationminute()+");";
         int row = sm.executeUpdate(query);
         if(row > 0)
         {
-            out.println("Description Added");
+            out.println("<html><body>"
+                    + "<script>alert('Description Added Successfully');</script>"
+                    + "</body></html>");
         }
         else
         {
-            out.println("Description Added Failed");
+            out.println("<html><body>"
+                    + "<script>alert('Description Add Fail');</script>"
+                    + "</body></html>");
         }
         
         
@@ -297,10 +330,16 @@ public class TutorServlet extends HttpServlet
             rs.getInt("intimeminute"),rs.getInt("outtimehour"),rs.getInt("outtimehour"),rs.getInt("durationhour"),
                     rs.getInt("durationminute")));
         }
-        out.println("<html><body>");
-        out.println("<br><hr><br>");
-        out.println("<h1>Description</h1>");
-        out.println("<table border='1'><tr><th>Date</th>");
+        out.println("<!DOCTYPE html>");
+        out.println("<html><head>\n" +
+"    <meta charset=\"UTF-8\">\n" +
+"    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n" +
+"    <title>&#128214; Description List - Max Home Tuition &#128214;</title><link rel=\"stylesheet\" href=\"showTable.css\"><body>");
+        out.println("<br><hr>");
+        out.println("<h2>Description</h2>");
+        out.println("<button type=\"button\" onclick=\"window.print()\">Print</button>\n" +
+"    <div class=\"table-responsive\">");
+        out.println("<table><tr><th>Date</th>");
         out.println("<th>Description</th>");
         out.println("<th>In Time Hour</th>");
         out.println("<th>In Time Minute</th>");
@@ -321,7 +360,34 @@ public class TutorServlet extends HttpServlet
             out.println("<td>"+d.getDurationminute()+"</td>");
             out.println("</tr>");
         }                                      
-        out.println("</table>");
+        out.println("</table></div>");
+        out.println("<br><br><p>Signature : </p>");
         out.println("</body></html>");
+    }
+    
+    
+    // Change password for admin
+    public static void change(HttpServletRequest req,HttpServletResponse res)throws IOException, SQLException, ClassNotFoundException, ServletException
+    {
+        PrintWriter out = res.getWriter();
+        String username = req.getParameter("username");
+        String newpassword = req.getParameter("newpassword");
+        Connection con = Connect.getCon();
+        PreparedStatement ps = con.prepareStatement("update adminlogin set password = ? where username=?");
+        ps.setString(1,newpassword);
+        ps.setString(2,username);
+        int row= ps.executeUpdate();
+        if(row > 0)
+        {
+            out.println("<html><body>"
+                    + "<script>alert('Password Change Successfully');</script>"
+                    + "</body></html>");
+        }
+        else
+        {
+            out.println("<html><body>"
+                    + "<script>alert('Password Change Failed');</script>"
+                    + "</body></html>");
+        }
     }
 }

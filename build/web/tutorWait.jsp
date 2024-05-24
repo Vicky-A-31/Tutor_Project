@@ -84,7 +84,8 @@
         <div class="message-box">
             <p>⚠️</p>
             <div>
-                <p><%out.println("After "+session.getAttribute("waittime")+" ,You will log in this website");%></p>
+                <p><%out.println("After "+session.getAttribute("waittime")+" ,You will log in this website (or) After"
+                        + " 9 PM you did not login in this website");%></p>
                 <p>click to back then <b><a href="index.jsp">try again</a></b></p>
             </div>
         </div>

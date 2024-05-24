@@ -1,0 +1,85 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 24-May-2024, 6:22:53 pm
+    Author     : vvbos
+*/
+
+       
+        body {
+            font-family: sans-serif;
+            margin:15px 20px 0 20px;
+        }
+        .inputs input{
+            font-size: 16px;
+            padding: 10px 15px;
+            border-radius: 9px;
+            border: 1px solid;
+        }
+
+        .inputs > input[type=submit]{
+            background-color: #f48982;
+            color: #fdf2e9;
+            font-weight: 600;
+            border-radius: 9px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            outline: 1px solid #f48982;
+        }
+
+        .inputs > input[type=submit]:hover{
+            background-color: #fdf2e9;
+            color: #f48982;
+        }
+        
+        button {
+            background-color: #f48982;
+            color: #fdf2e9;
+            font-weight: 600;
+            border-radius: 9px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            outline: 1px solid #f48982;
+            margin: 10px 0;
+            padding: 10px;
+            font-size: 16px;
+        }
+        button:hover{
+            background-color: #fdf2e9;
+            color: #f48982;
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+        }
+
+        table,
+        th,
+        td {
+            border: 2px solid black;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 10px;
+        }
+
+        th {
+            background-color: #382404;
+            color: #fdf2e9;
+        }
+
+        tr:nth-child(even):hover {
+            background-color: rgb(193, 190, 190);
+        }
+
+        @media print {
+            h2,input,button {
+                display: none;
+            }
+        }

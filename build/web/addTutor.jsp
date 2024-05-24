@@ -28,11 +28,11 @@
     <h2>Welcome Admin</h2>
     <nav class="topnav" id="myTopnav">
       <a href="adminHome.jsp">Home</a>
-      <a href="manageTutor.jsp">Manage Tutor</a>
+      <a href="adminChangePassword.jsp">Change Password</a>
       <a href="#" class="active">Add Tutor</a>
-      <a href="updateTutor.jsp">Update Tutor</a>
-      <a href="deleteTutor.jsp">Delete Tutor</a>
-      <a href="index.jsp">Log out</a>
+      <a href="tutorUpdate.jsp">Update Tutor</a>
+      <a href="tutorDelete.jsp">Delete Tutor</a>
+      <a href="logout.jsp">Log out</a>
       <a href="javascript:void(0);" class="icon" onclick="myFunction()">
         <i class="fa fa-bars"></i>
       </a>
@@ -42,7 +42,7 @@
 
   <!-- insert form starts for tutor add -->
   <section class="formcontainer">
-    <form action="">
+      <form action="TutorServlet" method="post">
       <h2>Add New Tutor</h2>
       
       <div class="inputs">
@@ -85,7 +85,7 @@
       </div>
 
       <div class="inputs">
-        <input type="submit" value="ADD">
+        <input type="submit" value="Insert" name="action">
       </div>
   
     </form>
