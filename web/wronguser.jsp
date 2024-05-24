@@ -12,7 +12,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>&#128214; Wrong User - Maths Home Tuition &#128214;</title>
+    <title>&#128214; Wrong User - Max Home Tuition &#128214;</title>
     <!-- internal css starts -->
     <style>
         * {

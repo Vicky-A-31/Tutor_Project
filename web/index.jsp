@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>&#128214; Login - Maths Home Tuition &#128214;</title>
+    <title>&#128214; Login - Max Home Tuition &#128214;</title>
     <link rel="stylesheet" href="./style.css">
     <!-- fontawesome link attached -->
     <script src="https://kit.fontawesome.com/f1a33637bb.js" crossorigin="anonymous"></script>
