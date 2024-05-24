@@ -17,9 +17,8 @@
     <body>
 
         <%
-          
             response.setHeader("Cache-Control","no-cache,no-store,must-revalidate");
-            session.setAttribute("username",null);
+            session.removeAttribute("username");
             response.sendRedirect("index.jsp");
         %>
     </body>

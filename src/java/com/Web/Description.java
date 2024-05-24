@@ -16,7 +16,7 @@ public class Description
     public Description() {
     }
 
-    public Description(String todaydate, String description, int intimehour, int intimeminute, int outtimehour, int outtimeminute) {
+ /*   public Description(String todaydate, String description, int intimehour, int intimeminute, int outtimehour, int outtimeminute) {
         this.todaydate = todaydate;
         this.description = description;
         this.intimehour = intimehour;
@@ -24,7 +24,7 @@ public class Description
         this.outtimehour = outtimehour;
         this.outtimeminute = outtimeminute;
     }
-
+*/
     public Description(String todaydate, String description, int intimehour, int intimeminute, int outtimehour, int outtimeminute, int durationhour, int durationminute) {
         this.todaydate = todaydate;
         this.description = description;

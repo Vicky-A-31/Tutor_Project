@@ -13,6 +13,7 @@
         %>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Tutor Home</title>
+            
     </head>
     <body>
        <h1><%out.println(session.getAttribute("username"));%></h1>

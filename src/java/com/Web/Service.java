@@ -73,7 +73,7 @@ public class Service
         ps.setInt(7,tutor.getAfterminute());
         
         Statement ps1 = con.createStatement();
-        String query = "create table "+tutor.getUsername()+"(todaydate varchar(50) primary key,description varchar(500),intimehour int,"
+        String query = "create table "+tutor.getUsername()+"(todaydate varchar(50) primary key,description varchar(200),intimehour int,"
                 + "intimeminute int,outtimehour int,outtimeminute int,durationhour int,durationminute int);";
        
         ps1.executeUpdate(query);

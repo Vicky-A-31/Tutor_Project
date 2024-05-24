@@ -263,7 +263,7 @@ public class TutorServlet extends HttpServlet
                outtimeminute,dhour,dminute);
         Connection con = Connect.getCon();
         Statement sm = con.createStatement();
-        String query = "insert into "+user.toLowerCase()+" values("+des.getTodaydate()+","+des.getDescription()+","
+        String query = "insert into "+user.toLowerCase()+" values('"+des.getTodaydate()+"','"+des.getDescription()+"',"
                 +des.getIntimehour()+","+des.getIntimeminute()+","+des.getOuttimehour()+","+des.getOuttimeminute()+","
                 +des.getDurationhour()+","+des.getDurationminute()+");";
         int row = sm.executeUpdate(query);
@@ -285,7 +285,7 @@ public class TutorServlet extends HttpServlet
     {
         PrintWriter out = res.getWriter();
         String username = req.getParameter("username");
-        ArrayList<Description> arr = new ArrayList<Description>();
+        ArrayList<Description> arr = new ArrayList<>();
         Connection con = Connect.getCon();
         PreparedStatement ps = con.prepareStatement("select * from "+username+";");
         
