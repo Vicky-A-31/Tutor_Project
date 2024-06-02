@@ -31,8 +31,8 @@
 
         /* message box contains emoji and error message */
         .message-box {
-            max-width: 380px;
-            max-height: 120px;
+            max-width: 400px;
+            max-height: 130px;
             margin-top: 100px;
             padding: 20px;
             background-color: #f48982;

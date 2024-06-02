@@ -219,8 +219,8 @@ public class TutorServlet extends HttpServlet
 "    <meta charset=\"UTF-8\">\n" +
 "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n" +
 "    <title>&#128214; Tutor List - Max Home Tuition &#128214;</title><link rel=\"stylesheet\" href=\"showTable.css\"><body>");
-        out.println("<form action=\"TutorServlet\" method=\"post\">"
-                + "<div class='inputs'>"+
+        out.println("<hr><form action=\"TutorServlet\" method=\"post\">"
+                + "<div class='inputs'><label>Username</label>"+
 "            <input type=\"text\" name=\"username\" placeholder=\"username\"></div><br><br>\n" +
 "            <div class='inputs'><input type=\"submit\" value=\"View Description\" name=\"action\"></div>\n" +
 "        </form>");
@@ -287,9 +287,20 @@ public class TutorServlet extends HttpServlet
             dhour = outtimehour-intimehour-1;
             dminute = (outtimeminute+60) - intimeminute; 
         }
+        int diffhour = (int)session.getAttribute("diffhour");
+        int diffminute = (int)session.getAttribute("diffminute");
+        int originalhour = dhour,originalminute = dminute;
+        if(diffhour <= dhour)
+       {
+          if(diffminute < dminute)
+          {
+            originalhour = diffhour;
+            originalminute = diffminute;
+          }
+       }
        
         Description des = new Description(todaydate.toString(),description,intimehour,intimeminute,outtimehour,
-               outtimeminute,dhour,dminute);
+               outtimeminute,originalhour,originalminute);
         Connection con = Connect.getCon();
         Statement sm = con.createStatement();
         String query = "insert into "+user.toLowerCase()+" values('"+des.getTodaydate()+"','"+des.getDescription()+"',"
@@ -327,18 +338,18 @@ public class TutorServlet extends HttpServlet
         while(rs.next())
         {
             arr.add(new Description(rs.getString("todaydate"),rs.getString("description"),rs.getInt("intimehour"),
-            rs.getInt("intimeminute"),rs.getInt("outtimehour"),rs.getInt("outtimehour"),rs.getInt("durationhour"),
+            rs.getInt("intimeminute"),rs.getInt("outtimehour"),rs.getInt("outtimeminute"),rs.getInt("durationhour"),
                     rs.getInt("durationminute")));
         }
         out.println("<!DOCTYPE html>");
         out.println("<html><head>\n" +
-"    <meta charset=\"UTF-8\">\n" +
-"    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n" +
-"    <title>&#128214; Description List - Max Home Tuition &#128214;</title><link rel=\"stylesheet\" href=\"showTable.css\"><body>");
+        "<meta charset=\"UTF-8\">\n" +
+        "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n" +
+        "<title>&#128214; Description List - Max Home Tuition &#128214;</title><link rel=\"stylesheet\" href=\"showTable.css\"><body>");
         out.println("<br><hr>");
         out.println("<h2>Description</h2>");
         out.println("<button type=\"button\" onclick=\"window.print()\">Print</button>\n" +
-"    <div class=\"table-responsive\">");
+        "<div class=\"table-responsive\">");
         out.println("<table><tr><th>Date</th>");
         out.println("<th>Description</th>");
         out.println("<th>In Time Hour</th>");
@@ -353,7 +364,7 @@ public class TutorServlet extends HttpServlet
             out.println("<td>"+d.getTodaydate()+"</td>");
             out.println("<td>"+d.getDescription()+"</td>");
             out.println("<td>"+d.getIntimehour()+"</td>");
-            out.println("<td>"+d.getIntimehour()+"</td>");
+            out.println("<td>"+d.getIntimeminute()+"</td>");
             out.println("<td>"+d.getOuttimehour()+"</td>");
             out.println("<td>"+d.getOuttimeminute()+"</td>");
             out.println("<td>"+d.getDurationhour()+"</td>");

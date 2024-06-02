@@ -19,16 +19,26 @@
             }
             
         %>
-     
-        
-       <h2><%out.println("Welcome "+session.getAttribute("username"));%></h2>
-       
-       <a href="logout.jsp">Log Out</a>
-       <a href="tutorView.jsp">View Description</a>
            
+      <!-- header and navigation bar starts -->
+  <header>
+    <h2>Welcome <%out.println(session.getAttribute("username"));%></h2>
+    <nav class="topnav" id="myTopnav">
+      <a href="#" class="active">Home</a>
+      <a href="tutorView.jsp">View Description</a>
+      <a href="logout.jsp">Log out</a>
+      <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+        <i class="fa fa-bars"></i>
+      </a>
+    </nav>
+  </header>
+  <!-- header and navigation bar end -->
+
+  <!-- tutor description insert start -->
             <section class="formcontainer">
     <form action="TutorServlet" method="post">
-        <%out.println("Date : "+session.getAttribute("todaydate"));%><br><br>
+        
+        <h2>Date :<%out.println(session.getAttribute("todaydate"));%><h2>
       
       <div class="inputs">
         <label for="username">Username</label>
@@ -66,7 +76,7 @@
   
     </form>
   </section>
-  <!-- insert form end for tutors add -->
+  <!-- tutor description insert end -->
 
   <!-- footer section starts -->
   <footer>
@@ -74,6 +84,18 @@
   </footer>
   <!-- footer section end -->
 
+  <!-- internal js attached for navigation bar -->
+  <script>
+    function myFunction() {
+      var x = document.getElementById("myTopnav");
+      if (x.className === "topnav") {
+        x.className += " responsive";
+      } else {
+        x.className = "topnav";
+      }
+    }
+  </script>
+  
 </body>
 
 </html>
